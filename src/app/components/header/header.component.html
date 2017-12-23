@@ -1,0 +1,8 @@
+<h1>{{title}}</h1>
+<ul>
+	<li class="user"><app-user></app-user></li>
+	<li *ngFor="let category of categories"><a href="/category/{{category.name}}"><button class="btn btn-default">{{category.name}}</button></a></li>
+	<li class="cart"><a routerLink="/viewcart"><app-cart></app-cart></a></li>
+</ul>
+
+<!-- <app-cart></app-cart> -->

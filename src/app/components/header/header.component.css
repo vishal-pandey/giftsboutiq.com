@@ -1,0 +1,16 @@
+li{
+	display: inline-block;
+}
+h1{
+	text-align: center;
+}
+ul{
+	text-align: center;
+	margin: 20px;
+}
+.cart{
+	float: right;
+}
+.user{
+	float: left;
+}

@@ -1,0 +1,14 @@
+<section class="category col-sm-12">
+	<header><h1>Categories</h1></header>
+	<div class="thecategory col-sm-3" *ngFor="let i of nu ">
+		<a routerLink="/{{i}}/"><div class="cat-cont">
+			<img src="../../../assets/images/placeholder.png" width="100">
+			<br>
+			<span class="name">Product Name</span><br>
+			<span class="price">100 Rs</span><br>
+			<span class="offer">10%</span><br>
+			<span>{{i}}</span><br>
+			<span>{{id}}</span>
+		</div></a>
+	</div>
+</section>

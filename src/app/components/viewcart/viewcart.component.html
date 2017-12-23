@@ -1,0 +1,10 @@
+<app-header></app-header>
+<div class="well col-sm-8" *ngFor="let pr of products;">
+	<div class="col-sm-3">	
+		<img src="../../../assets/images/placeholder.png">
+	</div>
+	<h5>{{getProductDetail(pr).name}}</h5>
+	<span>{{getProductDetail(pr).price}}</span>
+	<p>{{getProductDetail(pr).desc}}</p>
+
+</div>

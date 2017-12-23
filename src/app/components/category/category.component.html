@@ -1,0 +1,11 @@
+<app-header></app-header>
+<h2>{{category}}</h2>
+<div *ngFor="let pr of product;">
+	<a routerLink="/product/{{getProductDetail(pr).name}}">
+		<p>
+			<img src="../../../assets/images/placeholder.png"><br><br>
+			<b>Name :</b>{{getProductDetail(pr).name}}<br>
+			<b>Price : </b>{{getProductDetail(pr).price}}<br><br>
+		</p>
+	</a>
+</div>

@@ -1,0 +1,7 @@
+<div *ngIf="category; else other_content">
+	<app-category></app-category>
+</div>
+<ng-template #other_content>
+	<app-header></app-header>
+	<app-category></app-category>
+</ng-template>

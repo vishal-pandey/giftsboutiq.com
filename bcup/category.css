@@ -1,0 +1,39 @@
+.category{
+	min-height: 100vh;
+	background-color: rgb(200,0,0);
+	color: white;
+}
+.category header h1{
+	margin: 0;
+	text-align: center;
+}
+.thecategory{
+	text-align: center;
+	padding: 0px;
+	margin: 5px 0px;
+	border-radius: 5px;
+}
+.thecategory img{
+	width: 100%;
+}
+.offer{
+	color: lightgreen;
+}
+
+.cat-cont{
+	border: 1px solid lightgrey;
+	background-color: rgb(200,200,200);
+	border-radius: 5px;
+	margin: 3px;
+}
+
+
+@media only screen and (max-width: 768px) {
+	.thecategory{
+		width: 50%;
+		margin-left: 0;
+		margin-right: 0;
+		display: inline-block;
+		background-color: initial;
+	}
+}
