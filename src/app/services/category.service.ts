@@ -66,22 +66,22 @@ export class CategoryService {
 
   productDetail={
 		"product1":{
-			id:1,name:"product1",price:"$1000",desc:"This is desc"
+			id:1,name:"product1",price:"1000",desc:"This is desc"
 		},
 		"product2":{
-			id:2,name:"product2",price:"$1000",desc:"This is desc"
+			id:2,name:"product2",price:"800",desc:"This is desc"
 		},
 		"product3":{
-			id:3,name:"product3",price:"$1000",desc:"This is desc"
+			id:3,name:"product3",price:"900",desc:"This is desc"
 		},
 		"product4":{
-			id:4,name:"product4",price:"$1000",desc:"This is desc"
+			id:4,name:"product4",price:"500",desc:"This is desc"
 		},
 		"product5":{
-			id:5,name:"product5",price:"$1000",desc:"This is desc"
+			id:5,name:"product5",price:"600",desc:"This is desc"
 		},
 		"bukey":{
-			id:6,name:"bukey",price:"$100",desc:"New Description"
+			id:6,name:"bukey",price:"100",desc:"New Description"
 		},
   }
 

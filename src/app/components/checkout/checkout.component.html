@@ -1,0 +1,100 @@
+<h1><a routerLink="/">Gifts Boutiq</a></h1>
+<ul>
+
+	<li *ngFor="let category of categories"><a routerLink="/category/{{category.name}}"  ><button class="btn btn-default">{{category.name}}</button></a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+<section *ngIf="!this.userService.isLoggedIn();">
+	
+	<section class="steps col-sm-12">
+		<div class="col-sm-4 login">Login SignUp</div>
+		<div class="col-sm-4 address">Address</div>
+		<div class="col-sm-4 summery">Order Summery</div>
+	</section>
+
+
+
+	<h2 align="center">Login / SignUp</h2>
+	<form class="login-form text-center col-sm-6" [formGroup]="lForm" (submit)="mLogin(lForm.value)">
+		<input type="text" formControlName="mobile" class="form-control" placeholder="Mobile" required="true">
+		<input type="password" formControlName="password" class="form-control" placeholder="Password" required="true">
+		<button class="btn btn-default" [disabled]="!lForm.valid" >Login</button>
+		<a routerLink="/signup"><button class="btn btn-default">Sign Up</button></a>
+	</form>
+	<form class="signup-form text-center col-sm-6" [formGroup]="sForm" (submit)="mSignup(sForm.value)">
+		<input type="text" formControlName="name" class="form-control" placeholder="Name">
+		<input type="text" formControlName="mobile" class="form-control" placeholder="Mobile No">
+		<input type="email" formControlName="email" class="form-control" placeholder="Email">
+		<input type="password" formControlName="password" class="form-control" placeholder="New Password">
+		<input type="password" formControlName="rpassword" class="form-control" placeholder="Re Inter New Password">
+		<button class="btn btn-default" [disabled]="!sForm.valid">Sign Up</button>
+	</form>
+	<section *ngIf="error" class="error">{{error}}</section>
+</section>
+
+
+
+
+
+
+
+<section *ngIf="this.userService.isLoggedIn();">
+	<section class="steps col-sm-12">
+		<a (click)="this.userService.logOut()" ><div class="col-sm-4 login">{{user.name}}<br>Logout</div></a>
+		<a (click)="toggleAddTab()" *ngIf="!addresstab"><div class="col-sm-4 address">Address</div></a>
+		<a *ngIf="addresstab"><div class="col-sm-4 address">Address</div></a>
+		<div class="col-sm-4 summery">Order Summery</div>
+	</section>
+	<div *ngIf="addresstab" class="text-center">
+		<h2 align="center">Tell Us Where to dorp the gift</h2>
+		<h3 align="center">Full Postal Address</h3>
+		<p class="text-center">
+			<b>Registered Address </b><br>:{{address}}
+		</p>
+		<form class="col-sm-6 address-form text-center" [formGroup]="aForm" (submit)="submitAddress(aForm.value)">
+			<textarea class="form-control" formControlName="address" placeholder="Change Address"></textarea>
+			<button class="btn btn-success" [disabled]="!aForm.valid">Change</button>
+		</form>
+		<button class="btn btn-default" (click)="toggleAddTab()">Continue</button>
+	</div>
+	<div *ngIf="!addresstab">
+		<h2 align="center">Order Summery</h2>
+		<section class="col-sm-8">
+			<div class="well col-sm-12" *ngFor="let pr of products;">
+				<div class="col-sm-3">	
+					<img src="../../../assets/images/placeholder.png" width="100"><br>
+					<button class="btn" (click)="this.cartService.minusone(pr.id)">-</button><span class="qty">{{pr.val}}</span><button class="btn" (click)="this.cartService.plusone(pr.id)">+</button>
+				</div>
+				<h5>{{getProductDetail(pr.id).name}}</h5>
+				<span>Rs {{getProductDetail(pr.id).price}}</span>
+				<p>{{getProductDetail(pr.id).desc}}</p>
+				<button class="btn btn-danger" (click)="this.cartService.removeProduct(getProductDetail(pr.id).name)">Remove</button>
+
+			</div>
+
+		</section>
+
+		<section class="col-sm-3 text-center" *ngIf="products.length>0">
+			<div class="total">
+				<p class="text-center">
+					<b>Address To Diliver</b><br>{{address}}
+				</p>
+				Total: <button class="btn btn-default">Rs {{getTotal()}}</button><br>
+			</div>
+			<button class="btn btn-default" (click)="placeOrder()">Place Order</button>
+		</section>
+		<section class="col-sm-12 text-center" *ngIf="products.length==0">
+			<h1>Your Sopping Cart is Empty</h1>
+		</section>
+	</div>
+</section>

@@ -1,0 +1,17 @@
+.login-form, .signup-form{
+	width: 60%;
+	float: initial;
+	margin-left: auto;
+	margin-right: auto;
+}
+.error{
+	color: orange;
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 15px;
+	width: 60%;
+	background-color: rgb(245,245,245);
+	text-align: center;
+	border: 1px solid lightgrey;
+}

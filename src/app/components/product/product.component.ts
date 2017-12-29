@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import {CategoryService} from '../../services/category.service';
@@ -15,9 +15,12 @@ export class ProductComponent implements OnInit {
 
   constructor(private categoryService:CategoryService,
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location,
     private cartService:CartService,
-  ) {  }
+  ) { 
+    
+   }
 
   
   
@@ -38,11 +41,18 @@ export class ProductComponent implements OnInit {
 
   isAdded(){
     for(var x of this.cartService.products){
-      if (this.theProduct.name === x) {
+      if (this.theProduct.name === x.id) {
         return true;
       }
     }
     return false;
+  }
+
+  buyNow(){
+    if (!this.isAdded()) {
+      this.addToCart();
+    }
+    this.router.navigate(['/checkout']);
   }
 
 

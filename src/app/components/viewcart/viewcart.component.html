@@ -1,10 +1,26 @@
 <app-header></app-header>
-<div class="well col-sm-8" *ngFor="let pr of products;">
-	<div class="col-sm-3">	
-		<img src="../../../assets/images/placeholder.png">
-	</div>
-	<h5>{{getProductDetail(pr).name}}</h5>
-	<span>{{getProductDetail(pr).price}}</span>
-	<p>{{getProductDetail(pr).desc}}</p>
+<section class="col-sm-8">
+	<div class="well col-sm-12" *ngFor="let pr of products;">
+		<div class="col-sm-3">	
+			<img src="../../../assets/images/placeholder.png"><br>
+			<button class="btn" (click)="this.cartService.minusone(pr.id)">-</button><span class="qty">{{pr.val}}</span><button class="btn" (click)="this.cartService.plusone(pr.id)">+</button>
+		</div>
+		<h5>{{getProductDetail(pr.id).name}}</h5>
+		<span>Rs {{getProductDetail(pr.id).price}}</span>
+		<p>{{getProductDetail(pr.id).desc}}</p>
+		<button class="btn btn-danger" (click)="this.cartService.removeProduct(getProductDetail(pr.id).name)">Remove</button>
 
-</div>
+	</div>
+
+</section>
+<section class="col-sm-3" *ngIf="products.length>0">
+	<div class="total">
+		Total: <button class="btn btn-default">Rs {{getTotal()}}</button><br>
+	</div>
+
+	<a routerLink="/"><button class="btn btn-primary">Continue Shopping</button></a>
+	<a routerLink="/checkout"><button class="btn btn-success">Place Order</button></a>
+</section>
+<section class="col-sm-12 text-center" *ngIf="products.length==0">
+	<h1>Your Sopping Cart is Empty</h1>
+</section>

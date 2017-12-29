@@ -3,6 +3,7 @@ import { AppComponent } from '../../app.component';
 import { CategoryService } from '../../services/category.service';
 import { CookieService } from 'ngx-cookie-service';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

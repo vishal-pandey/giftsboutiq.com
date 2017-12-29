@@ -10,7 +10,7 @@ const connection = (closure) => {
         if (err) return console.log(err);
 
         closure(db);
-        
+
     });
 };
 

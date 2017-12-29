@@ -1,7 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -18,6 +25,15 @@ import { UserService } from './services/user.service';
 import { CartComponent } from './components/cart/cart.component';
 import { UserComponent } from './components/user/user.component';
 import { ViewcartComponent } from './components/viewcart/viewcart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuardService } from './auth-guard.service';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileGuard } from './guards/profile.guard';
+import { CheckoutGuard } from './guards/checkout.guard';
+
+
+
 
 
 @NgModule({
@@ -30,13 +46,20 @@ import { ViewcartComponent } from './components/viewcart/viewcart.component';
     ProductComponent,
     CartComponent,
     UserComponent,
-    ViewcartComponent
+    ViewcartComponent,
+    CheckoutComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [CategoryService, CookieService, CartService, UserService],
+  providers: [CategoryService, CookieService, CartService, UserService, AuthGuardService, ProfileGuard, CheckoutGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,16 +3,22 @@
 	<div class="photo">
 		<img src="../../../assets/images/placeholder.png">
 		<button *ngIf="!isAdded(); else gotocart" class="btn btn-default " (click)="addToCart()"> Add To Cart</button>
-		<button class="btn btn-default">Buy Now</button>
+		<button class="btn btn-default" (click)="buyNow()">Buy Now</button>
 	</div>
 	<div class="desc">
 		<h2>{{theProduct.name}}</h2>
-		<span>{{theProduct.price}}</span><samp>{{theProduct.price}}</samp>
+		<span>Rs{{theProduct.price}}</span> <samp>Rs{{theProduct.price}}</samp>
 		<p>
 			<span>Description</span><br>
 			{{theProduct.desc}}<br>
 		</p>
 	</div>
 </section>
+
+
+<div class="fb-comments" data-href="http://localhost:4200/product/product2" data-numposts="5"></div>
+
+
+
 
 <ng-template #gotocart><a routerLink="/viewcart"><button class="btn btn-default">Go to Cart</button></a></ng-template>
