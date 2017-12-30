@@ -18,10 +18,15 @@ export class HeaderComponent implements OnInit {
     private cookieService:CookieService,
   ) { }
 
-  categories = this.categoryService.category;
+  categories = [];
   title = this.appComponent.title; 
 
   ngOnInit() {
+
+    this.categoryService.getCategory()
+    .subscribe((result)=>{
+      this.categories = result;
+    });;
   }
 
 }

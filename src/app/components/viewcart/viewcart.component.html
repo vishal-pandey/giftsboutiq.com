@@ -5,10 +5,12 @@
 			<img src="../../../assets/images/placeholder.png"><br>
 			<button class="btn" (click)="this.cartService.minusone(pr.id)">-</button><span class="qty">{{pr.val}}</span><button class="btn" (click)="this.cartService.plusone(pr.id)">+</button>
 		</div>
-		<h5>{{getProductDetail(pr.id).name}}</h5>
-		<span>Rs {{getProductDetail(pr.id).price}}</span>
-		<p>{{getProductDetail(pr.id).desc}}</p>
-		<button class="btn btn-danger" (click)="this.cartService.removeProduct(getProductDetail(pr.id).name)">Remove</button>
+		<!-- {{pr.id}} -->
+		<!-- <button (click)="getProductDetail(pr.id)"></button> -->
+		<h5>{{getProductDetail(pr.id)?.name}}</h5>
+		<span>Rs {{getProductDetail(pr.id)?.price}}</span>
+		<p>{{getProductDetail(pr.id)?.description}}</p>
+		<button class="btn btn-danger" (click)="this.cartService.removeProduct(getProductDetail(pr.id)?.name)">Remove</button>
 
 	</div>
 

@@ -41,13 +41,25 @@ export class CheckoutComponent implements OnInit {
 
   // viewcart functions
   products = this.cartService.products;
+  prArray = [];
 	getProductDetail(pr){
-    return this.categoryService.getProductDetail(pr);
+    for(let prs of this.prArray){
+      if (pr == prs.name) {
+        return prs;
+      }
+    }
   }
+
   getTotal(){
     let total=0;
     for(let pr of this.products){
-      let price = parseInt(this.getProductDetail(pr.id).price);
+      let pall = {"pid":"","cid":"","name":"","price":"","sprice":"","description":"","qty":""};
+      for(let prs of this.prArray){
+        if (pr.id == prs.name) {
+          pall = prs;
+        }
+      }
+      let price = parseInt(pall.price);
       let qty = parseInt(pr.val);
       total += (price*qty);
     }
@@ -89,7 +101,14 @@ export class CheckoutComponent implements OnInit {
     this.aForm = fb.group({
   		"address": [null,Validators.required],
   	});
-  	
+
+  	for(let pr of this.products){
+      this.categoryService.getProductDetail(pr.id).subscribe((result)=>{
+        // this.theProduct = result;
+        this.prArray.push(result);
+        // console.log(result);
+      });    
+    }
   }
 
   toggleAddTab(){

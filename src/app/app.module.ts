@@ -31,6 +31,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileGuard } from './guards/profile.guard';
 import { CheckoutGuard } from './guards/checkout.guard';
+import { RatingService } from './services/rating.service';
 
 
 
@@ -59,7 +60,7 @@ import { CheckoutGuard } from './guards/checkout.guard';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [CategoryService, CookieService, CartService, UserService, AuthGuardService, ProfileGuard, CheckoutGuard],
+  providers: [CategoryService, CookieService, CartService, UserService, AuthGuardService, ProfileGuard, CheckoutGuard, RatingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

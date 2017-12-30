@@ -13,9 +13,6 @@ import { RouterModule, Routes } from '@angular/router';
 })
 export class CategoryComponent implements OnInit {
 
-	// nu=[1,2,3,4,5,6,9];
-	nu:number[];
-
   category:any;
   product:any;
 
@@ -27,22 +24,14 @@ export class CategoryComponent implements OnInit {
     
     this.route.params.subscribe( params => {
       this.category = params.id
-      this.product = this.categoryService.getProducts(this.category);
+      this.categoryService.getProducts(this.category).subscribe((result)=>{
+        this.product = result;
+      });
     });
   }
-  
-
 
   prlist = JSON.stringify(this.product);
   theProducts:any[];
-
-  // pList(){
-  //   this.theProducts=[];
-  //   for(var pr in this.product){
-  //     this.theProducts.push(pr);
-  //   }
-  // }
-
 
   getProductDetail(theProduct){
     return this.categoryService.getProductDetail(theProduct);
@@ -51,5 +40,4 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
     
   }
-
 }

@@ -6,14 +6,6 @@
 
 
 
-
-
-
-
-
-
-
-
 <section *ngIf="!this.userService.isLoggedIn();">
 	
 	<section class="steps col-sm-12">
@@ -58,12 +50,12 @@
 	<div *ngIf="addresstab" class="text-center">
 		<h2 align="center">Tell Us Where to dorp the gift</h2>
 		<h3 align="center">Full Postal Address</h3>
-		<p class="text-center">
-			<b>Registered Address </b><br>:{{address}}
+		<p class="text-center" *ngIf="address">
+			<b>Registered Address : </b><br>{{address}}
 		</p>
 		<form class="col-sm-6 address-form text-center" [formGroup]="aForm" (submit)="submitAddress(aForm.value)">
-			<textarea class="form-control" formControlName="address" placeholder="Change Address"></textarea>
-			<button class="btn btn-success" [disabled]="!aForm.valid">Change</button>
+			<textarea class="form-control" formControlName="address" placeholder="Update Address"></textarea>
+			<button class="btn btn-success" [disabled]="!aForm.valid">Update</button>
 		</form>
 		<button class="btn btn-default" (click)="toggleAddTab()">Continue</button>
 	</div>
@@ -75,10 +67,10 @@
 					<img src="../../../assets/images/placeholder.png" width="100"><br>
 					<button class="btn" (click)="this.cartService.minusone(pr.id)">-</button><span class="qty">{{pr.val}}</span><button class="btn" (click)="this.cartService.plusone(pr.id)">+</button>
 				</div>
-				<h5>{{getProductDetail(pr.id).name}}</h5>
-				<span>Rs {{getProductDetail(pr.id).price}}</span>
-				<p>{{getProductDetail(pr.id).desc}}</p>
-				<button class="btn btn-danger" (click)="this.cartService.removeProduct(getProductDetail(pr.id).name)">Remove</button>
+				<h5>{{getProductDetail(pr.id)?.name}}</h5>
+				<span>Rs {{getProductDetail(pr.id)?.price}}</span>
+				<p>{{getProductDetail(pr.id)?.desc}}</p>
+				<button class="btn btn-danger" (click)="this.cartService.removeProduct(getProductDetail(pr.id)?.name)">Remove</button>
 
 			</div>
 
