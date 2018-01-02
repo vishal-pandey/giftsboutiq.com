@@ -1,11 +1,17 @@
 <app-header></app-header>
-<h2>{{category}}</h2>
-<div *ngFor="let pr of product;">
-	<a routerLink="/product/{{pr.name}}" *ngIf="pr.name">
-		<p>
-			<img src="../../../assets/images/placeholder.png"><br><br>
-			<b>Name :</b>{{pr.name}}<br>
-			<b>Price : </b> <i>Rs{{pr.sprice}}</i> Rs{{pr.price}}<br><br>
-		</p>
-	</a>
-</div>
+<section class="container">
+	<h2>{{category}}</h2>
+	<div *ngFor="let pr of product;">
+		<a routerLink="/product/{{pr.name}}" *ngIf="pr.name">
+		<mat-card class="theProduct">		
+			<img mat-card-image src="../../../assets/images/placeholder1.jpg"><br>
+			<mat-card-content>
+				<span class="pname">{{pr.name}}</span><br>
+				<span class="sprice">&#8377;{{pr.sprice}}</span> <span class="price"> &#8377;{{pr.price}}</span><span class="discount">
+					{{(pr.price-pr.sprice)/pr.price*100}}% Off
+				</span><br><br>
+			</mat-card-content>
+		</mat-card>
+		</a>
+	</div>
+</section>

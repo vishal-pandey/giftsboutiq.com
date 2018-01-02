@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { CategoryService } from '../../services/category.service';
 import { CookieService } from 'ngx-cookie-service';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 
 @Component({
@@ -20,6 +22,13 @@ export class HeaderComponent implements OnInit {
 
   categories = [];
   title = this.appComponent.title; 
+
+
+  navig(link){
+    alert(link);
+    
+  }
+
 
   ngOnInit() {
 

@@ -46,6 +46,21 @@ export class ViewcartComponent implements OnInit {
           pall = prs;
         }
       }
+      let price = parseInt(pall.sprice);
+      let qty = parseInt(pr.val);
+      total += (price*qty);
+    }
+    return total;
+  }
+  getpTotal(){
+    let total=0;
+    for(let pr of this.products){
+      let pall = {"pid":"","cid":"","name":"","price":"","sprice":"","description":"","qty":""};
+      for(let prs of this.prArray){
+        if (pr.id == prs.name) {
+          pall = prs;
+        }
+      }
       let price = parseInt(pall.price);
       let qty = parseInt(pr.val);
       total += (price*qty);

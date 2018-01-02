@@ -11,6 +11,8 @@ import { RouterModule, Routes } from '@angular/router';
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
+
+
 export class CategoryComponent implements OnInit {
 
   category:any;

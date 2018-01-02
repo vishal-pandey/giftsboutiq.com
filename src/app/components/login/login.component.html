@@ -2,8 +2,12 @@
 <section class="login text-center" *ngIf="isLogin()">
 	<h2>Login</h2>
 	<form class="login-form text-center" [formGroup]="lForm" (submit)="mLogin(lForm.value)">
-		<input type="text" formControlName="mobile" class="form-control" placeholder="Mobile" required="true">
-		<input type="password" formControlName="password" class="form-control" placeholder="Password" required="true">
+		<mat-form-field  class="theInput">
+			<input matInput type="text" formControlName="mobile" placeholder="Mobile" required="true">
+		</mat-form-field>
+		<mat-form-field class="theInput">
+			<input matInput type="password" formControlName="password" class="" placeholder="Password" required="true">
+		</mat-form-field>
 		<button class="btn btn-default" [disabled]="!lForm.valid" >Login</button>
 		<a routerLink="/signup"><button class="btn btn-default">Sign Up</button></a>
 	</form>
@@ -11,11 +15,21 @@
 <section class="signUp text-center" *ngIf="!isLogin()">
 	<h2>Sign Up</h2>
 	<form class="signup-form text-center" [formGroup]="sForm" (submit)="mSignup(sForm.value)">
-		<input type="text" formControlName="name" class="form-control" placeholder="Name">
-		<input type="text" formControlName="mobile" class="form-control" placeholder="Mobile No">
-		<input type="email" formControlName="email" class="form-control" placeholder="Email">
-		<input type="password" formControlName="password" class="form-control" placeholder="New Password">
-		<input type="password" formControlName="rpassword" class="form-control" placeholder="Re Inter New Password">
+		<mat-form-field class="theInput">
+			<input matInput type="text" formControlName="name" class="" placeholder="Name">
+		</mat-form-field>
+		<mat-form-field class="theInput">
+			<input matInput type="text" formControlName="mobile" class="" placeholder="Mobile No">
+		</mat-form-field>
+		<mat-form-field class="theInput">
+			<input matInput type="email" formControlName="email" class="" placeholder="Email">
+		</mat-form-field>
+		<mat-form-field class="theInput">
+			<input matInput type="password" formControlName="password" class="" placeholder="New Password">
+		</mat-form-field>
+		<mat-form-field class="theInput">
+			<input matInput type="password" formControlName="rpassword" class="" placeholder="Re Inter New Password">
+		</mat-form-field>
 		<button class="btn btn-default" [disabled]="!sForm.valid">Sign Up</button>
 	</form>
 	<a routerLink="/login"><button class="btn btn-default">Login</button></a>

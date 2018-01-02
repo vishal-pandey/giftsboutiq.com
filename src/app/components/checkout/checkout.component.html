@@ -1,92 +1,157 @@
-<h1><a routerLink="/">Gifts Boutiq</a></h1>
-<ul>
+<app-header></app-header>
+<section class="container" *ngIf="this.products.length>0">
+<br>
+<mat-tab-group *ngIf="!this.userService.isLoggedIn();">
+	<mat-tab label="Login / Sign Up">
+		<ng-template mat-tab-label>
+      Login / SignUp
+    </ng-template>
+    <br>
+		<mat-card class="col-sm-6">
+			<mat-card-content>
+				<form class="login-form text-center" [formGroup]="lForm" (submit)="mLogin(lForm.value)">
+					<mat-form-field>
+						<input type="text" matInput formControlName="mobile" class="" placeholder="Mobile" required="true">
+					</mat-form-field>
+					<mat-form-field>
+						<input type="password" matInput formControlName="password" placeholder="Password" required="true">
+					</mat-form-field>
+					<button mat-raised-button color="primary" [disabled]="!lForm.valid" >Login</button>
+				</form>
+			</mat-card-content>
+		</mat-card>
+		<mat-card class="col-sm-6">
+			<mat-card-content>
+				<form class="signup-form text-center" [formGroup]="sForm" (submit)="mSignup(sForm.value)">
+					<mat-form-field>
+						<input type="text" matInput formControlName="name"  placeholder="Name">
+					</mat-form-field>
+					<mat-form-field>
+						<input type="text" matInput formControlName="mobile"  placeholder="Mobile No">
+					</mat-form-field>
+					<mat-form-field>
+						<input type="email" matInput formControlName="email"  placeholder="Email">
+					</mat-form-field>
+					<mat-form-field>
+						<input type="password" matInput formControlName="password"  placeholder="New Password">
+					</mat-form-field>
+					<mat-form-field>
+						<input type="password" matInput formControlName="rpassword"  placeholder="Re Inter New Password">
+					</mat-form-field>
+					<button mat-raised-button [disabled]="!sForm.valid">Sign Up</button>
+				</form>
+			</mat-card-content>
+		</mat-card>
+		<br>
+	</mat-tab>
+	<mat-tab label="Address" [disabled]="!this.userService.isLoggedIn()"></mat-tab>
+	<mat-tab label="Order Summary" disabled></mat-tab>
+</mat-tab-group>
 
-	<li *ngFor="let category of categories"><a routerLink="/category/{{category.name}}"  ><button class="btn btn-default">{{category.name}}</button></a></li>
-</ul>
+<mat-tab-group *ngIf="this.userService.isLoggedIn()" [(selectedIndex)]="addindex">
+	<mat-tab>
+		<ng-template mat-tab-label>
+      {{user.name}}
+    </ng-template>
+		<br>
+		<mat-card class="profile-card">
+			<mat-card-header>
+				<mat-card-title><h4 class="profile-heading">User Profile</h4></mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
+				<mat-list>
+					<mat-list-item><b>Name : </b> {{user.name}}</mat-list-item>
+					<mat-list-item><b>Mobile : </b>{{user.mobile}}</mat-list-item>
+					<mat-list-item><b>Email : </b>{{user.email}}</mat-list-item>
+					<mat-list-item *ngIf="user.address"><b>Address :</b>{{user.address}}</mat-list-item>
+					<mat-list-item *ngIf="!user.address"><b>Address :</b>				Assress Not Defined	</mat-list-item>
+				</mat-list>
+			</mat-card-content>
+		</mat-card>
+	</mat-tab>
+	<mat-tab label="Address">
+		<h2 align="center">Delivery Address</h2>
+		<mat-card class="col-sm-6 address-form text-center" *ngIf="address">
+			<mat-card-content>
+				{{address}}
+			</mat-card-content>
+		</mat-card>
+		<br>
+		<mat-card class="col-sm-6 address-form text-center">
+			<mat-card-content>
+				<form class=" text-center" [formGroup]="aForm" (submit)="submitAddress(aForm.value)">
+					<mat-form-field>
+						<textarea matInput formControlName="address" placeholder="Update Address"></textarea>
+					</mat-form-field>
+					<button mat-raised-button [disabled]="!aForm.valid">Update</button>
+				</form>	
+			</mat-card-content>
+		</mat-card>
+		<br>
+		<mat-card class="col-sm-6 address-form text-center">
+			<mat-card-content>
+				<button mat-raised-button color="primary" (click)="toggleAddTab()">Continue</button>
+			</mat-card-content>
+		</mat-card>
+	</mat-tab>
 
+	<mat-tab label="Order Summary">
+		<br>
+		<section class="col-sm-8 products" style="padding: 0">
+			<mat-card *ngFor="let pr of products;">
+				<mat-card-content>
+					<div class="product-image-container">
+						<img src="../../../assets/images/placeholder1.jpg" class="product-image"><br>
+						<button mat-mini-fab (click)="this.cartService.minusone(pr.id)">-</button><button mat-fab color="warn">{{pr.val}}</button><button mat-mini-fab (click)="this.cartService.plusone(pr.id)">+</button>
+					</div>
+					<div class="description-contianer">
+						<h5>{{getProductDetail(pr.id)?.name}}</h5>
+						<span class="sprice">&#8377; {{getProductDetail(pr.id)?.sprice}}</span>
+						<span class="price">&#8377; {{getProductDetail(pr.id)?.price}}</span>
+						<span class="discount">
+							{{(getProductDetail(pr.id)?.price-getProductDetail(pr.id)?.sprice)/getProductDetail(pr.id)?.price*100}}% Off
+						</span>
 
-
-<section *ngIf="!this.userService.isLoggedIn();">
-	
-	<section class="steps col-sm-12">
-		<div class="col-sm-4 login">Login SignUp</div>
-		<div class="col-sm-4 address">Address</div>
-		<div class="col-sm-4 summery">Order Summery</div>
-	</section>
-
-
-
-	<h2 align="center">Login / SignUp</h2>
-	<form class="login-form text-center col-sm-6" [formGroup]="lForm" (submit)="mLogin(lForm.value)">
-		<input type="text" formControlName="mobile" class="form-control" placeholder="Mobile" required="true">
-		<input type="password" formControlName="password" class="form-control" placeholder="Password" required="true">
-		<button class="btn btn-default" [disabled]="!lForm.valid" >Login</button>
-		<a routerLink="/signup"><button class="btn btn-default">Sign Up</button></a>
-	</form>
-	<form class="signup-form text-center col-sm-6" [formGroup]="sForm" (submit)="mSignup(sForm.value)">
-		<input type="text" formControlName="name" class="form-control" placeholder="Name">
-		<input type="text" formControlName="mobile" class="form-control" placeholder="Mobile No">
-		<input type="email" formControlName="email" class="form-control" placeholder="Email">
-		<input type="password" formControlName="password" class="form-control" placeholder="New Password">
-		<input type="password" formControlName="rpassword" class="form-control" placeholder="Re Inter New Password">
-		<button class="btn btn-default" [disabled]="!sForm.valid">Sign Up</button>
-	</form>
-	<section *ngIf="error" class="error">{{error}}</section>
+						<p>{{getProductDetail(pr.id)?.description}}</p>
+						<button mat-raised-button color="warn" (click)="this.cartService.removeProduct(getProductDetail(pr.id)?.name)">Remove</button>
+					</div>
+				</mat-card-content>
+			</mat-card>
+		</section>
+		<section class="total col-sm-4" style="padding: 0">
+			<mat-card>
+				<mat-card-header>
+					<mat-card-title>
+						<h5>Total</h5>
+					</mat-card-title>
+				</mat-card-header>
+				<mat-card-content style="text-align: center;">
+					<span class="sprice">&#8377; {{getTotal()}}</span>
+					<span class="price">&#8377; {{getpTotal()}}</span>
+					<br>
+					<span class="discount">You Save &#8377; {{getpTotal()-getTotal()}}</span>
+				</mat-card-content>
+				<mat-card-actions style="text-align: center;">
+					<a routerLink="/"><button mat-raised-button color="accent">Continue Shopping</button></a>
+					<button mat-raised-button color="primary" (click)="placeOrder()">Place Order</button>
+				</mat-card-actions>
+			</mat-card>
+		</section>
+		<section class="total col-sm-4" style="padding: 0">
+			<mat-card>
+				<mat-card-header>
+					<mat-card-title>
+						<h5>Delivery Address</h5>
+					</mat-card-title>
+				</mat-card-header>
+				<mat-card-content style="text-align: center;">
+					{{address}}
+				</mat-card-content>
+			</mat-card>
+		</section>
+	</mat-tab>
+</mat-tab-group>
 </section>
-
-
-
-
-
-
-
-<section *ngIf="this.userService.isLoggedIn();">
-	<section class="steps col-sm-12">
-		<a (click)="this.userService.logOut()" ><div class="col-sm-4 login">{{user.name}}<br>Logout</div></a>
-		<a (click)="toggleAddTab()" *ngIf="!addresstab"><div class="col-sm-4 address">Address</div></a>
-		<a *ngIf="addresstab"><div class="col-sm-4 address">Address</div></a>
-		<div class="col-sm-4 summery">Order Summery</div>
-	</section>
-	<div *ngIf="addresstab" class="text-center">
-		<h2 align="center">Tell Us Where to dorp the gift</h2>
-		<h3 align="center">Full Postal Address</h3>
-		<p class="text-center" *ngIf="address">
-			<b>Registered Address : </b><br>{{address}}
-		</p>
-		<form class="col-sm-6 address-form text-center" [formGroup]="aForm" (submit)="submitAddress(aForm.value)">
-			<textarea class="form-control" formControlName="address" placeholder="Update Address"></textarea>
-			<button class="btn btn-success" [disabled]="!aForm.valid">Update</button>
-		</form>
-		<button class="btn btn-default" (click)="toggleAddTab()">Continue</button>
-	</div>
-	<div *ngIf="!addresstab">
-		<h2 align="center">Order Summery</h2>
-		<section class="col-sm-8">
-			<div class="well col-sm-12" *ngFor="let pr of products;">
-				<div class="col-sm-3">	
-					<img src="../../../assets/images/placeholder.png" width="100"><br>
-					<button class="btn" (click)="this.cartService.minusone(pr.id)">-</button><span class="qty">{{pr.val}}</span><button class="btn" (click)="this.cartService.plusone(pr.id)">+</button>
-				</div>
-				<h5>{{getProductDetail(pr.id)?.name}}</h5>
-				<span>Rs {{getProductDetail(pr.id)?.price}}</span>
-				<p>{{getProductDetail(pr.id)?.desc}}</p>
-				<button class="btn btn-danger" (click)="this.cartService.removeProduct(getProductDetail(pr.id)?.name)">Remove</button>
-
-			</div>
-
-		</section>
-
-		<section class="col-sm-3 text-center" *ngIf="products.length>0">
-			<div class="total">
-				<p class="text-center">
-					<b>Address To Diliver</b><br>{{address}}
-				</p>
-				Total: <button class="btn btn-default">Rs {{getTotal()}}</button><br>
-			</div>
-			<button class="btn btn-default" (click)="placeOrder()">Place Order</button>
-		</section>
-		<section class="col-sm-12 text-center" *ngIf="products.length==0">
-			<h1>Your Sopping Cart is Empty</h1>
-		</section>
-	</div>
+<section class="container text-center" *ngIf="this.products.length == 0">
+	<h1>Your Cart Is Empty</h1>
 </section>

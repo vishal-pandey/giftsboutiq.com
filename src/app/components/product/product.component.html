@@ -1,47 +1,89 @@
 <app-header></app-header>
-<section>
-	<div class="photo">
-		<img src="../../../assets/images/placeholder.png">
-		<button *ngIf="!isAdded(); else gotocart" class="btn btn-default " (click)="addToCart()"> Add To Cart</button>
-		<button class="btn btn-default" (click)="buyNow()">Buy Now</button>
-	</div>
-	<div class="desc">
-		<h2>{{theProduct.name}}</h2>
-		<span>Rs{{theProduct.sprice}}</span> <samp>Rs{{theProduct.price}}</samp>
-		<p>
-			<span>Description</span><br>
-			{{theProduct.description}}<br>
-		</p>
-	</div>
-</section>
-
-<div class="comments col-sm-6 review" *ngFor="let review of reviews">
-	<div class="contains well" *ngIf="review.name">
-		<b>Name : </b>{{review.name}}
-		<b>Comment : </b>{{review.comment}}
-		<b>Rating : </b>{{review.rating}}
-	</div>
-</div>
-<div class="col-sm-6 well review">
-
-
-	<h3 align="center">Submit Your review</h3>
+<section class="container">
+	<mat-card class="photo">
+		<img mat-card-image src="../../../assets/images/placeholder1.jpg">
+		<mat-card-actions>
+			<button mat-raised-button color="primary" *ngIf="!isAdded(); else gotocart" (click)="addToCart()"> Add To Cart</button>
+			<button mat-raised-button color="primary" class="btn btn-default" (click)="buyNow()">Buy Now</button>	
+		</mat-card-actions>
+	</mat-card>
+	<ng-template #gotocart><a routerLink="/viewcart"><button mat-raised-button color="primary">Go to Cart</button></a></ng-template>
+	<mat-card class="description">
+		<mat-card-header>
+			<mat-card-title>
+				<h3>{{theProduct.name}}</h3>
+			</mat-card-title>
+			<mat-card-subtitle>
+				<span class="sprice">Rs{{theProduct.sprice}}</span> 
+				<span class="price">Rs{{theProduct.price}}</span>
+				<span class="discount">
+					{{(theProduct.price-theProduct.sprice)/theProduct.price*100}}% Off
+				</span>
+			</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content>
+		  <p>
+		    {{theProduct.description}}
+		  </p>
+		</mat-card-content>
+	</mat-card>
 	
-		<form class="text-center" [formGroup]="rForm" (submit)="submitReview(rForm.value)">
-		<select class="form-control" formControlName="rating">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-		</select>
-		<input type="text" formControlName="name" class="form-control" placeholder="Name">
-		<input type="email" formControlName="email" class="form-control" placeholder="Email">
-		<textarea formControlName="comment" class="form-control" placeholder="Comment"></textarea>
-		<button class="btn btn-default">Submit</button>
-	</form>
-</div>
+</section>
+<section class="container">
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title>
+				<h4>Ratings and Reviews</h4>
+			</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<!-- <mat-list> -->
+				<!-- <mat-list-item *ngFor="let review of reviews"> -->
+				<section *ngFor="let review of reviews" class="review">
+					<div class="thereview" *ngIf="review.name">
+						<div style="width: 100%;">
+							<span class="name"><b>{{review.name}}</b></span>
+							<span class="rating">{{review.rating | excerpt}}</span>
+							<span class="rdate"><i>{{review.rdate | date}}</i></span>
+						</div>
+						<br>
+						<div style="width: 100%;">
+							<span class="comment">{{review.comment}}</span>
+						</div>
+					</div>
+				</section>
 
+				<mat-card>
+					<mat-card-header>
+						<mat-card-title>Submit Your Review</mat-card-title>
+					</mat-card-header>
+					<mat-card-content>
+						<form class="text-center" [formGroup]="rForm" (submit)="submitReview(rForm.value)">
+							
+								<select matInput class="" formControlName="rating">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+							
+							<mat-form-field>
+								<input type="text" matInput formControlName="name" class="theInput" placeholder="Name">
+							</mat-form-field>
+							<mat-form-field>
+								<input type="email" matInput formControlName="email" class="theInput" placeholder="Email">
+							</mat-form-field>
+							<mat-form-field>
+								<textarea matInput formControlName="comment" class="theInput" placeholder="Comment"></textarea>
+							</mat-form-field>
+							<button mat-raised-button color="primary">Submit</button>
+						</form>
+					</mat-card-content>
+				</mat-card>
 
-
-<ng-template #gotocart><a routerLink="/viewcart"><button class="btn btn-default">Go to Cart</button></a></ng-template>
+				<!-- </mat-list-item> -->
+			<!-- </mat-list> -->
+		</mat-card-content>
+	</mat-card>
+</section>

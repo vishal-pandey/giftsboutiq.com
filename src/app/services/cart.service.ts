@@ -108,7 +108,14 @@ export class CartService {
   }
 
   removeProduct(productId){
-    this.products.splice(this.products.indexOf(productId), 1);
+    let toRemove:object;
+    for(let pr of this.products){
+      if (pr.id == productId) {
+        toRemove = pr;
+        break;
+      }
+    }
+    this.products.splice(this.products.indexOf(toRemove), 1);
     this.cookieService.set("products",JSON.stringify(this.products),360000,"/");
     if(this.userService.isLoggedIn()){
       this.http.post("http://api.giftsboutiq.com/cart/add.php", {

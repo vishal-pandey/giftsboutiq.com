@@ -1,25 +1,41 @@
 <app-header></app-header>
-<section class="col-sm-8 profile">
-	<h2>User Profile</h2>
-	<b>Name :<br></b>{{user.name}}<br>
-	<b>Mobile :<br></b>{{user.mobile}}<br>
-	<b>Email :<br></b>{{user.email}}<br>
-	<b *ngIf="user.address">Address :<br></b>{{user.address}}<br>
-	<b *ngIf="!user.address">Address :<br>Assress Not Defined<br></b>
-</section>
-<section class="col-sm-8 orders">
-	<h2>Orders</h2>
-	<div *ngFor="let order of orders">
-		<div class="well" *ngIf="order.oid">
-			<b>Order Id : </b>{{order.oid}}<br>
-			<b>Ordered On : </b>{{order.date}}<br>
-			<b>Delivery Address : </b>{{order.address}}<br>
-			<b>Order Cost : </b>{{order.cost}}<br>
-			<p *ngFor="let theorder of order.order" style="border:1px solid black;">
-				{{theorder.id}}	X
-				{{theorder.val}}	
-			</p>
-			<b>Status : </b>{{order.status}}<br>
-		</div>
-	</div>
+<section class="profile-content">
+	<br>
+	<mat-card class="profile-card">
+		<mat-card-header>
+			<mat-card-title><h4 class="profile-heading">User Profile</h4></mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<mat-list>
+				<mat-list-item><b>Name : </b> {{user.name}}</mat-list-item>
+				<mat-list-item><b>Mobile : </b>{{user.mobile}}</mat-list-item>
+				<mat-list-item><b>Email : </b>{{user.email}}</mat-list-item>
+				<mat-list-item *ngIf="user.address"><b>Address :</b>{{user.address}}</mat-list-item>
+				<mat-list-item *ngIf="!user.address"><b>Address :</b>				Assress Not Defined	</mat-list-item>
+			</mat-list>
+		</mat-card-content>
+	</mat-card>
+	<br>
+	<section class="orders">
+		<mat-card *ngFor="let order of orders" class="order-card">
+			<mat-card-content *ngIf="order.oid">
+				<div class="descrition-contianer text-center">
+					<h5><b>Order Id : </b> {{order.oid}}</h5>
+					<b>Ordered On : </b>{{order.date | date}}<br>
+					<b>Delivery Address : </b>{{order.address}}<br>
+					<b>Order Cost : </b>{{order.cost}}<br>
+				</div>
+				<mat-list>
+					<div *ngFor="let theorder of order.order">
+						<div class="text-center">
+							<img src="../../../assets/images/placeholder1.jpg" class="product-image" width="100">
+						</div>
+						<div class="text-center">
+							{{theorder.id}}	X {{theorder.val}}	
+						</div>
+					</div>
+				</mat-list>
+			</mat-card-content>
+		</mat-card>
+	</section>
 </section>

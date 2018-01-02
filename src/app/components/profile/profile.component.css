@@ -4,3 +4,57 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+.profile-card{
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+}
+.profile-content{
+	background-color: rgb(238,238,238);
+	min-height: 100vh;
+}
+.profile-heading{
+	
+}
+mat-card-header{
+	border-bottom: 1px solid lightgrey;
+}
+
+
+.order-card{
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+
+
+.product-image-container{
+	width: 30%;
+	text-align: center;
+	display: inline-block;
+	/*border: 1px solid black;*/
+}
+.description-contianer{
+	width: 68%;
+	position: absolute;
+	top: 10px;
+	/*border: 1px solid black;*/
+	display: inline-block;
+
+}
+.product-image{
+	width: 100px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.orders{
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+}
+@media only screen and (max-width: 768px) {
+	.profile-card, .orders{
+		width: 95%;
+	}
+
+}

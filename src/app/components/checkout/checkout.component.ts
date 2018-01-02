@@ -31,6 +31,7 @@ export class CheckoutComponent implements OnInit {
   email:string = "";
   address:string;
   addresstab = true;
+  addindex="1";
   user = {};
   error:string;
   redirectUrl:string;
@@ -59,14 +60,28 @@ export class CheckoutComponent implements OnInit {
           pall = prs;
         }
       }
-      let price = parseInt(pall.price);
+      let price = parseInt(pall.sprice);
       let qty = parseInt(pr.val);
       total += (price*qty);
     }
     return total;
   }
 
-
+  getpTotal(){
+    let total=0;
+    for(let pr of this.products){
+      let pall = {"pid":"","cid":"","name":"","price":"","sprice":"","description":"","qty":""};
+      for(let prs of this.prArray){
+        if (pr.id == prs.name) {
+          pall = prs;
+        }
+      }
+      let price = parseInt(pall.price);
+      let qty = parseInt(pr.val);
+      total += (price*qty);
+    }
+    return total;
+  }
 
 
 
@@ -109,14 +124,17 @@ export class CheckoutComponent implements OnInit {
         // console.log(result);
       });    
     }
+
   }
 
   toggleAddTab(){
   	this.getAddress();
-  	if (this.addresstab) {
+  	if (this.addindex=="1") {
 	  	this.addresstab = false;
+      this.addindex="2";
   	}else{
   		this.addresstab = true;
+      this.addindex="1";
   	}
   }
 
@@ -137,10 +155,12 @@ export class CheckoutComponent implements OnInit {
         this.userService.saveToken(result.value);
         this.cartService.updateCart();
         this.getAddress();
+        window.location.reload();
         // this.address = true;
         // this.router.navigate(['']);
       }else{
-      	this.error = result.key;	
+      	this.error = result.key;
+        alert(this.error);	
       }
 
   	});
@@ -165,13 +185,15 @@ export class CheckoutComponent implements OnInit {
 		        // this.address = true;
 		        // this.router.navigate(['']);
 		      }else{
-		      	this.error = result.key;	
+		      	this.error = result.key;
+            alert(this.error);	
 		      }
 		  	});
         // alert("Sign Up Successful Click Ok to go to login page");
         // this.router.navigate(['/login']);
       }else{
         this.error = result;
+        alert(this.error);
       }
     });
     return false;

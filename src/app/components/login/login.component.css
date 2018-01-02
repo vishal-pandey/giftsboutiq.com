@@ -1,5 +1,5 @@
 .login-form, .signup-form{
-	width: 60%;
+	width: 50%;
 	float: initial;
 	margin-left: auto;
 	margin-right: auto;
@@ -14,4 +14,12 @@
 	background-color: rgb(245,245,245);
 	text-align: center;
 	border: 1px solid lightgrey;
+}
+.theInput{
+	width: 100%;
+}
+@media only screen and (max-width: 768px) {
+	.login-form, .signup-form{
+		width: 90%;
+	}	
 }

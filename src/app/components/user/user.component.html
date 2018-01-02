@@ -1,8 +1,8 @@
 <section *ngIf="isLoggedIn">
-	<a routerLink="/profile"><button class="btn btn-default user">User Profile</button></a>
-	<button class="btn btn-danger user" (click)="this.userService.logOut()">Logout</button>
+	<a routerLink="/profile"><button mat-button class="">User Profile</button></a>
+	<button mat-button class="" (click)="this.userService.logOut()">Logout</button>
 </section>
 <section *ngIf="!isLoggedIn">
-	<a routerLink="/signup"><button class="btn btn-primary user">Sign Up</button></a>
-	<a routerLink="/login"><button class="btn btn-primary user">Log In</button></a>
+	<a routerLink="/signup"><button mat-button class="">Sign Up</button></a>
+	<a routerLink="/login"><button mat-button class="">Log In</button></a>
 </section>

@@ -1,28 +1,46 @@
 <app-header></app-header>
-<section class="col-sm-8">
-	<div class="well col-sm-12" *ngFor="let pr of products;">
-		<div class="col-sm-3">	
-			<img src="../../../assets/images/placeholder.png"><br>
-			<button class="btn" (click)="this.cartService.minusone(pr.id)">-</button><span class="qty">{{pr.val}}</span><button class="btn" (click)="this.cartService.plusone(pr.id)">+</button>
-		</div>
-		<!-- {{pr.id}} -->
-		<!-- <button (click)="getProductDetail(pr.id)"></button> -->
-		<h5>{{getProductDetail(pr.id)?.name}}</h5>
-		<span>Rs {{getProductDetail(pr.id)?.price}}</span>
-		<p>{{getProductDetail(pr.id)?.description}}</p>
-		<button class="btn btn-danger" (click)="this.cartService.removeProduct(getProductDetail(pr.id)?.name)">Remove</button>
+<section class="container"  *ngIf="products.length>0">
+	<section class="col-sm-8 products" style="padding: 0">
+		<mat-card *ngFor="let pr of products;">
+			<mat-card-content>
+				<div class="product-image-container">
+					<img src="../../../assets/images/placeholder1.jpg" class="product-image"><br>
+					<button mat-mini-fab (click)="this.cartService.minusone(pr.id)">-</button><button mat-fab color="warn">{{pr.val}}</button><button mat-mini-fab (click)="this.cartService.plusone(pr.id)">+</button>
+				</div>
+				<div class="description-contianer">
+					<h5>{{getProductDetail(pr.id)?.name}}</h5>
+					<span class="sprice">&#8377; {{getProductDetail(pr.id)?.sprice}}</span>
+					<span class="price">&#8377; {{getProductDetail(pr.id)?.price}}</span>
+					<span class="discount">
+						{{(getProductDetail(pr.id)?.price-getProductDetail(pr.id)?.sprice)/getProductDetail(pr.id)?.price*100}}% Off
+					</span>
 
-	</div>
-
+					<p>{{getProductDetail(pr.id)?.description}}</p>
+					<button mat-raised-button color="warn" (click)="this.cartService.removeProduct(getProductDetail(pr.id)?.name)">Remove</button>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</section>
+	<section class="total col-sm-4" style="padding: 0">
+		<mat-card>
+			<mat-card-header>
+				<mat-card-title>
+					<h5>Total</h5>
+				</mat-card-title>
+			</mat-card-header>
+			<mat-card-content style="text-align: center;">
+				<span class="sprice">&#8377; {{getTotal()}}</span>
+				<span class="price">&#8377; {{getpTotal()}}</span>
+				<br>
+				<span class="discount">You Save &#8377; {{getpTotal()-getTotal()}}</span>
+			</mat-card-content>
+			<mat-card-actions style="text-align: center;">
+				<a routerLink="/"><button mat-raised-button color="accent">Continue Shopping</button></a>
+				<a routerLink="/checkout"><button mat-raised-button color="primary">Place Order</button></a>
+			</mat-card-actions>
+		</mat-card>
+	</section>
 </section>
-<section class="col-sm-3" *ngIf="products.length>0">
-	<div class="total">
-		Total: <button class="btn btn-default">Rs {{getTotal()}}</button><br>
-	</div>
-
-	<a routerLink="/"><button class="btn btn-primary">Continue Shopping</button></a>
-	<a routerLink="/checkout"><button class="btn btn-success">Place Order</button></a>
-</section>
-<section class="col-sm-12 text-center" *ngIf="products.length==0">
-	<h1>Your Sopping Cart is Empty</h1>
+<section *ngIf="products.length==0" class="container text-center">
+	<h1>!!! Your Cart Is Empty !!!</h1>
 </section>
